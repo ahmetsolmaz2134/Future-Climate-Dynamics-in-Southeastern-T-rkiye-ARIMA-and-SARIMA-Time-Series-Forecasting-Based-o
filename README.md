@@ -1,34 +1,62 @@
-# Future Climate Risk in Southeastern Türkiye (2021–2050)
-
-## Project Overview
-
-Climate change is expected to substantially alter temperature and precipitation regimes across Southeastern Türkiye, a region characterized by high climatic variability, water-resource pressure, agricultural dependence, and increasing exposure to drought and extreme climatic conditions.
-
-This project investigates projected climate change and associated climate risks across Southeastern Türkiye during the 2021–2050 period using CMIP6 climate projections and multiple Shared Socioeconomic Pathways (SSPs).
-
-The primary objective is to quantify projected changes in temperature, precipitation, and drought-related climate conditions and to identify areas that may experience greater future climate risk.
+# Future Climate Dynamics in Southeastern Türkiye
+### ARIMA and SARIMA Time-Series Forecasting Based on NASA POWER Data
 
 ---
 
-## Research Question
+## 1. Project Overview
 
-**How are temperature, precipitation, and drought-related climate risks expected to change across Southeastern Türkiye during 2021–2050 under different CMIP6 climate scenarios?**
+Climate change is increasingly affecting temperature and precipitation regimes across the Mediterranean and Middle East. Southeastern Türkiye is particularly vulnerable because of its semi-arid climatic conditions, agricultural dependence, water-resource pressure, and strong seasonal variability.
 
-### Specific Objectives
+This project investigates the temporal dynamics of temperature and precipitation across Southeastern Türkiye using long-term NASA POWER climate data and statistical time-series modelling.
 
-- Quantify projected changes in mean temperature.
-- Assess projected changes in precipitation.
-- Examine spatial and temporal variations in climate change signals.
-- Evaluate potential changes in drought conditions.
-- Compare projected climate conditions under different SSP scenarios.
-- Identify areas with relatively higher future climate risk.
-- Produce reproducible maps and statistical visualizations using R.
+The study applies **ARIMA (AutoRegressive Integrated Moving Average)** and **SARIMA (Seasonal AutoRegressive Integrated Moving Average)** models to identify temporal patterns, evaluate seasonality, and generate short- to medium-term statistical forecasts.
+
+The primary analysis period covers **1981–2025**, while statistical forecasts will be generated for the subsequent period where model performance and uncertainty permit.
 
 ---
 
-## Study Area
+## 2. Why Was This Project Conducted?
 
-The study focuses on **Southeastern Türkiye**, including the provinces of:
+Many regional climate studies focus primarily on detecting trends in temperature and precipitation.
+
+However, identifying a historical trend does not fully describe the temporal structure of a climate variable.
+
+Temperature and precipitation are characterized by:
+
+- temporal dependence,
+- autocorrelation,
+- seasonality,
+- persistence,
+- interannual variability,
+- and non-stationary behaviour.
+
+Therefore, this project approaches climate variability as a **time-series modelling problem**.
+
+The purpose is not only to determine whether climate variables have changed, but also to investigate whether their historical temporal structure can be statistically modelled and used to generate future forecasts.
+
+---
+
+## 3. Research Question
+
+### Main Research Question
+
+**How can ARIMA and SARIMA models represent and forecast the temporal dynamics of temperature and precipitation in Southeastern Türkiye?**
+
+### Sub-Questions
+
+1. What are the long-term temporal characteristics of temperature and precipitation?
+2. Do the climate time series exhibit significant autocorrelation?
+3. Are the series stationary?
+4. Is there a significant seasonal component?
+5. Does SARIMA provide better predictive performance than non-seasonal ARIMA?
+6. Which model provides the most reliable forecasts?
+7. How do forecast characteristics differ among the provinces of Southeastern Türkiye?
+
+---
+
+## 4. Study Area
+
+The study focuses on the major provinces of Southeastern Türkiye:
 
 - Adıyaman
 - Batman
@@ -40,189 +68,83 @@ The study focuses on **Southeastern Türkiye**, including the provinces of:
 - Şanlıurfa
 - Şırnak
 
-The region is particularly relevant for climate-risk assessment because of its semi-arid climatic characteristics, agricultural activity, water-resource sensitivity, and exposure to increasing temperatures and drought.
+These provinces represent an important climatic and socio-economic region of Türkiye where agricultural production, water availability, drought vulnerability, and increasing climatic variability are particularly important.
 
 ---
 
-## Data
+## 5. Data Source
 
-The analysis will primarily use **CMIP6 climate projections**.
+All climate data used in this project are obtained from the:
 
-### Climate Variables
+**NASA Prediction of Worldwide Energy Resources (POWER) Project**
 
-The following variables will be investigated:
+NASA POWER provides analysis-ready meteorological and solar datasets through temporal APIs, including monthly and daily time-series products. The platform allows data to be accessed programmatically using geographic coordinates and selected climate parameters.
 
-- Near-surface air temperature
-- Precipitation
-- Temperature anomalies
-- Precipitation anomalies
-- Drought-related indicators
+The project is designed to obtain the data directly through the NASA POWER API in order to maintain a reproducible workflow.
 
-### Climate Scenarios
+### Data Source
 
-Multiple Shared Socioeconomic Pathways will be compared:
+NASA POWER
 
-- SSP1-2.6
-- SSP2-4.5
-- SSP3-7.0
-- SSP5-8.5
+https://power.larc.nasa.gov/
 
-The analysis will focus on the **2021–2050 projection period**.
+### Temporal Coverage
 
----
+**1981–2025**
 
-## Climate Models
+### Temporal Resolution
 
-The study may incorporate multiple CMIP6 global climate models in order to reduce dependence on a single model.
-
-Candidate models include:
-
-- ACCESS-CM2
-- BCC-CSM2-MR
-- CanESM5
-- CNRM-CM6-1
-- GISS-E2-1-G
-- HadGEM3-GC31-LL
-- MIROC6
-- MPI-ESM1-2-HR
-
-Where appropriate, multi-model comparisons and ensemble-based assessments will be conducted.
+**Monthly**
 
 ---
 
-## Methodology
+## 6. Climate Variables
 
-The analytical workflow will be implemented primarily in **R**.
+The primary climate variables investigated in this project are:
 
-### 1. Data Preparation
+### Temperature
 
-- Import climate projection datasets.
-- Standardize temporal formats.
-- Check missing and anomalous values.
-- Harmonize spatial and temporal resolution.
-- Extract the study region.
-- Prepare model and scenario datasets.
+- Mean temperature (`T2M`)
+- Maximum temperature (`T2M_MAX`)
+- Minimum temperature (`T2M_MIN`)
 
-### 2. Temperature Analysis
+### Precipitation
 
-Temperature projections will be evaluated using:
+- Corrected precipitation (`PRECTOTCORR`)
 
-- Mean temperature
-- Temperature anomalies
-- Linear trends
-- Spatial temperature change
-- Scenario-based comparison
-
-### 3. Precipitation Analysis
-
-Precipitation changes will be assessed using:
-
-- Annual precipitation
-- Seasonal precipitation
-- Precipitation anomalies
-- Relative precipitation change
-- Temporal trends
-- Spatial patterns
-
-### 4. Drought Assessment
-
-Potential future drought conditions will be examined using climate-based indicators such as:
-
-- SPI
-- SPEI
-- Drought frequency
-- Drought duration
-- Drought intensity
-
-Where data availability permits, evapotranspiration-related variables will also be incorporated into drought assessment.
-
-### 5. Trend Analysis
-
-Statistical trend analysis may include:
-
-- Mann–Kendall test
-- Sen's slope estimator
-- Linear regression
-- Pettitt change-point analysis
-
-These methods will be used to evaluate the direction, magnitude, and statistical significance of projected climate changes.
+These variables are selected because temperature and precipitation represent two fundamental components of regional climate variability.
 
 ---
 
-## Climate Risk Assessment
+## 7. Methodological Framework
 
-A regional climate-risk framework will be developed by integrating multiple climate indicators.
-
-Conceptually:
-
-**Climate Hazard → Exposure → Potential Risk**
-
-The climate hazard component will primarily consider:
-
-- Increasing temperature
-- Precipitation reduction
-- Increasing drought conditions
-- Climate variability
-
-A composite climate-risk assessment may subsequently be developed to identify areas where multiple climate stressors overlap.
-
----
-
-## Expected Outputs
-
-The project will produce:
-
-### Maps
-
-- Projected temperature change
-- Projected precipitation change
-- Temperature anomalies
-- Precipitation anomalies
-- Drought distribution
-- Scenario comparisons
-- Spatial climate-risk patterns
-
-### Statistical Outputs
-
-- Trend statistics
-- Sen's slope estimates
-- Mann–Kendall significance
-- Drought frequency
-- Drought duration
-- Scenario-based climate comparisons
-
-### Figures
-
-- Time-series plots
-- Scenario comparison plots
-- Climate anomaly plots
-- Drought severity plots
-- Spatial risk maps
-- Multi-model comparison figures
-
----
-
-## Reproducible Research Workflow
-
-The project is designed as a reproducible climate-data analysis workflow.
+The analysis follows a reproducible time-series workflow.
 
 ```text
-CMIP6 Climate Data
-        ↓
+NASA POWER Climate Data
+          ↓
+Data Acquisition
+          ↓
 Data Quality Control
-        ↓
-Spatial & Temporal Processing
-        ↓
-Climate Scenario Analysis
-        ↓
-Temperature Analysis
-        ↓
-Precipitation Analysis
-        ↓
-Drought Assessment
-        ↓
-Trend & Statistical Analysis
-        ↓
-Climate Risk Assessment
-        ↓
-Maps & Scientific Visualizations
+          ↓
+Data Transformation
+          ↓
+Exploratory Time-Series Analysis
+          ↓
+Stationarity Testing
+          ↓
+ACF / PACF Analysis
+          ↓
+ARIMA Modelling
+          ↓
+SARIMA Modelling
+          ↓
+Model Diagnostics
+          ↓
+Model Comparison
+          ↓
+Forecasting
+          ↓
+Scientific Visualization
+          ↓
+Interpretation
